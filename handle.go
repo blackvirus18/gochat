@@ -7,7 +7,7 @@ import (
 	"github.com/gautamrege/gochat/api"
 )
 
-// Ensure that users are added / removed using a mutex!
+//PeerHandleMapSync : Ensure that users are added / removed using a mutex!
 type PeerHandleMapSync struct {
 	sync.RWMutex
 	PeerHandleMap map[string]api.Handle
@@ -21,7 +21,7 @@ func (hs *PeerHandleMapSync) Insert(newHandle api.Handle) (err error) {
 	return nil
 }
 
-// get the user details from the map with given name
+//Get the user details from the map with given name
 func (hs *PeerHandleMapSync) Get(name string) (handle api.Handle, ok bool) {
 	hs.Lock()
 	// TODO-WORKSHOP-STEP-4: This code should fetch the handle from the PeerHandleMap based on the key name
@@ -30,7 +30,7 @@ func (hs *PeerHandleMapSync) Get(name string) (handle api.Handle, ok bool) {
 	return
 }
 
-// delete the user from map
+//Delete the user from map
 func (hs *PeerHandleMapSync) Delete(name string) {
 	hs.Lock()
 	// TODO-WORKSHOP-STEP-5: This code should remove the handle from the PeerHandleMap based on the key name
@@ -38,10 +38,12 @@ func (hs *PeerHandleMapSync) Delete(name string) {
 	fmt.Println("UserHandle Removed for ", name)
 }
 
+//String gives the stringified format of your handle `name@host:port`
 func String(h api.Handle) string {
 	return fmt.Sprintf("%s@%s:%d", h.Name, h.Host, h.Port)
 }
 
+//String print the list of all names of the handles in the map
 func (hs PeerHandleMapSync) String() string {
 	var users string
 	// TODO-WORKSHOP-STEP-6: This code should print the list of all names of the handles in the map

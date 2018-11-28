@@ -24,7 +24,10 @@ var (
 	stdReader = bufio.NewReader(os.Stdin)
 )
 
+//MyHandle is the description of the endpoint through which I will be able to chat with others
 var MyHandle api.Handle
+
+//USERS are a list of users to which I can talk on chat
 var USERS = PeerHandleMapSync{
 	PeerHandleMap: make(map[string]api.Handle),
 }
@@ -56,8 +59,6 @@ func main() {
 		textInput = strings.Replace(textInput, "\n", "", -1)
 		parseAndExecInput(textInput)
 	}
-
-	wg.Wait()
 }
 
 // Handle the input chat messages as well as help commands
