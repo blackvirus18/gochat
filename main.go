@@ -69,24 +69,14 @@ func parseAndExecInput(input string) {
 
 	switch {
 	case cmd == "":
-		break
-	case cmd == "?":
-		fmt.Printf(helpStr)
-		break
 	case strings.ToLower(cmd) == "/users":
 		fmt.Println(USERS)
-		break
 	case strings.ToLower(cmd) == "/exit":
 		os.Exit(1)
-		break
 	case cmd[0] == '@':
 		// TODO-WORKSHOP-STEP-9: Write code to sendChat. Example
 		// "@gautam hello golang" should send a message to handle with name "gautam" and message "hello golang"
 		// Invoke sendChat to send the  message
-		break
-	case strings.ToLower(cmd) == "/help":
-		fmt.Println(helpStr)
-		break
 	default:
 		fmt.Println(helpStr)
 	}
