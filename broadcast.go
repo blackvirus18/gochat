@@ -16,15 +16,16 @@ const broadcastAddress = "192.168.1.255:33333"
 // Broadcast Listener , Listens on 33333 and updates the Global Users list
 func listenAndRegisterUsers() {
 
+	// startServer to port 33333
+	udpAddress, _ := net.ResolveUDPAddr("udp4", broadcastAddress)
+	udpConn, err := net.ListenUDP("udp", udpAddress)
+	defer udpConn.Close()
+	if err != nil {
+		log.Print(err)
+	}
+
 	var user api.Handle
 	for {
-		// startServer to port 33333
-		udpAddress, _ := net.ResolveUDPAddr("udp4", broadcastAddress)
-		udpConn, err := net.ListenUDP("udp", udpAddress)
-		if err != nil {
-			log.Print(err)
-		}
-
 		// read the data and add to users.
 		inputBytes := make([]byte, 4096)
 		length, _, _ := udpConn.ReadFromUDP(inputBytes)
@@ -36,8 +37,6 @@ func listenAndRegisterUsers() {
 		if user.Host != MyHandle.Host {
 			users.Insert(user)
 		}
-
-		udpConn.Close()
 	}
 }
 
