@@ -13,6 +13,6 @@ func addFakeHandles() {
 			Port: int32(i * 23),
 			Host: "fake IP",
 		}
-		USERS.Insert(h)
+		users.Insert(h)
 	}
 }

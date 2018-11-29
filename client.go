@@ -38,7 +38,7 @@ func sendChat(receiverHandle api.Handle, message string) {
 	_, err = chatClient.Chat(ctx, &req)
 	if err != nil {
 		log.Printf("ERROR: Chat(): %v", err)
-		USERS.Delete(receiverHandle.Name)
+		users.Delete(receiverHandle.Name)
 	}
 	return
 }

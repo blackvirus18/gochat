@@ -44,7 +44,7 @@ func String(h api.Handle) string {
 }
 
 //String print the list of all names of the handles in the map
-func (hs PeerHandleMapSync) String() string {
+func (hs *PeerHandleMapSync) String() string {
 	var users string
 	// TODO-WORKSHOP-STEP-6: This code should print the list of all names of the handles in the map
 	// TODO-THINK: Do we need a Lock here?

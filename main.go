@@ -27,8 +27,8 @@ var (
 //MyHandle is the description of the endpoint through which I will be able to chat with others
 var MyHandle api.Handle
 
-//USERS are a list of users to which I can talk on chat
-var USERS = PeerHandleMapSync{
+//users are a list of users to which I can talk on chat
+var users = &PeerHandleMapSync{
 	PeerHandleMap: make(map[string]api.Handle),
 }
 
@@ -70,7 +70,7 @@ func parseAndExecInput(input string) {
 	switch {
 	case cmd == "":
 	case strings.ToLower(cmd) == "/users":
-		fmt.Println(USERS)
+		fmt.Println(users)
 	case strings.ToLower(cmd) == "/exit":
 		os.Exit(1)
 	case cmd[0] == '@':

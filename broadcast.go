@@ -36,7 +36,7 @@ func listenAndRegisterUsers(wg *sync.WaitGroup) {
 
 		// Ignore the user with same host
 		if user.Host != MyHandle.Host {
-			USERS.Insert(user)
+			users.Insert(user)
 		}
 
 		udpConn.Close()
