@@ -5,7 +5,6 @@ import (
 	"encoding/gob"
 	"log"
 	"net"
-	"sync"
 	"time"
 
 	"github.com/gautamrege/gochat/api"
@@ -15,8 +14,7 @@ import (
 const broadcastAddress = "192.168.1.255:33333"
 
 // Broadcast Listener , Listens on 33333 and updates the Global Users list
-func listenAndRegisterUsers(wg *sync.WaitGroup) {
-	defer wg.Done()
+func listenAndRegisterUsers() {
 
 	var user api.Handle
 	for {
@@ -44,8 +42,7 @@ func listenAndRegisterUsers(wg *sync.WaitGroup) {
 }
 
 // broadcastOwnHandle go-routine that publishes it's Handle on 33333
-func broadcastOwnHandle(wg *sync.WaitGroup) {
-	defer wg.Done()
+func broadcastOwnHandle() {
 
 	// Broadcast immediately at the start
 	broadcastIsAlive()

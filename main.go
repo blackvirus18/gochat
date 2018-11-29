@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"os/signal"
 	"strings"
 	"sync"
 
@@ -40,25 +41,26 @@ func main() {
 
 	// TODO-WORKSHOP-STEP-2: Initialize global MyHandle of type api.Handle
 
-	var wg sync.WaitGroup
-	wg.Add(3)
-
 	// Broadcast for is-alive on 33333 with own UserHandle.
-	go broadcastOwnHandle(&wg)
+	go broadcastOwnHandle()
 
 	// Listener for is-alive broadcasts from other hosts. Listening on 33333
-	go listenAndRegisterUsers(&wg)
+	go listenAndRegisterUsers()
 
 	// gRPC listener
-	go startServer(&wg)
+	go startServer()
 
-	for {
-		fmt.Printf("> ")
-		textInput, _ := stdReader.ReadString('\n')
-		// convert CRLF to LF
-		textInput = strings.Replace(textInput, "\n", "", -1)
-		parseAndExecInput(textInput)
-	}
+	go func() {
+		for {
+			fmt.Printf("> ")
+			textInput, _ := stdReader.ReadString('\n')
+			// convert CRLF to LF
+			textInput = strings.Replace(textInput, "\n", "", -1)
+			parseAndExecInput(textInput)
+		}
+	}()
+
+	waitForExit()
 }
 
 // Handle the input chat messages as well as help commands
@@ -80,4 +82,18 @@ func parseAndExecInput(input string) {
 	default:
 		fmt.Println(helpStr)
 	}
+}
+
+func waitForExit() {
+	signalChan := make(chan os.Signal, 1)
+	signal.Notify(signalChan, os.Interrupt)
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		<-signalChan
+		fmt.Println("\nReceived an interrupt, stopping services...")
+		wg.Done()
+	}()
+	wg.Wait()
+	os.Exit(0)
 }
