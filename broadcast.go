@@ -7,7 +7,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/gautamrege/gochat/api"
+	"github.com/blackvirus18/gochat/api"
 )
 
 //Edit: Local Network broadcast address

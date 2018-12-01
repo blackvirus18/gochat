@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/gautamrege/gochat/api"
+	"github.com/blackvirus18/gochat/api"
 )
 
 //PeerHandleMapSync : Ensure that users are added / removed using a mutex!

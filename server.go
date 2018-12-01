@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/gautamrege/gochat/api"
+	"github.com/blackvirus18/gochat/api"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )

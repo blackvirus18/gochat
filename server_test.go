@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/gautamrege/gochat/api"
+	"github.com/blackvirus18/gochat/api"
 )
 
 func addFakeHandles() {
