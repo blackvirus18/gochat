@@ -3,10 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/gautamrege/gochat/api"
-	"google.golang.org/grpc"
 	"log"
 	"time"
+
+	"github.com/blackvirus18/gochat/api"
+	"google.golang.org/grpc"
 )
 
 func sendChat(receiverHandle api.Handle, message string) {
