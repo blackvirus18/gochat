@@ -14,11 +14,11 @@ func sendChat(receiverHandle api.Handle, message string) {
 	receiverConnStr := fmt.Sprintf("%s:%d", receiverHandle.Host, receiverHandle.Port)
 
 	receiverConn, err := grpc.Dial(receiverConnStr, grpc.WithInsecure())
-	defer receiverConn.Close()
 	if err != nil {
 		log.Fatalf("fail to dial: %v", err)
 		return
 	}
+	defer receiverConn.Close()
 
 	chatClient := api.NewGoChatClient(receiverConn)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)

@@ -19,10 +19,10 @@ func listenAndRegisterUsers() {
 	// startServer to port 33333
 	udpAddress, _ := net.ResolveUDPAddr("udp4", broadcastAddress)
 	udpConn, err := net.ListenUDP("udp", udpAddress)
-	defer udpConn.Close()
 	if err != nil {
-		log.Print(err)
+		log.Fatal(err)
 	}
+	defer udpConn.Close()
 
 	var user api.Handle
 	for {
@@ -59,11 +59,12 @@ func broadcastOwnHandle() {
 // broadcast on 33333 every 30 seconds with MyHandle(own) Handler
 func broadcastIsAlive() {
 	conn, err := net.Dial("udp", broadcastAddress)
-	defer conn.Close()
 	if err != nil {
 		log.Print(err)
 		return
 	}
+
+	defer conn.Close()
 
 	var buffer bytes.Buffer
 	encoder := gob.NewEncoder(&buffer)
